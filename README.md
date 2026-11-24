@@ -1,11 +1,11 @@
 # Espaço Alta Cabana
 
-Landing page responsiva do Espaço Alta Cabana, feita com React, TypeScript, Vite e Tailwind CSS, seguindo a base frontend do portfólio de referência.
+Landing page responsiva para o Espaço Alta Cabana, feita com React, TypeScript e Vite.
 
-## Desenvolvimento
+## Desenvolvimento local
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -13,22 +13,26 @@ npm run dev
 
 ```bash
 npm run build
+npm run preview
 ```
 
-## Componentes da página
+## Publicação no GitHub Pages
 
-- `NavBar`: navegação responsiva e cabeçalho que acompanha o scroll.
-- `Hero`: apresentação, slider de imagens e indicadores do espaço.
-- `Eventos`: tipos de celebração e atalhos para portfólio ou orçamento.
-- `Sobre`: história e infraestrutura do espaço.
-- `Portifolio`: galeria filtrável e visualização ampliada.
-- `Cardapio`: opções de gastronomia em abas interativas.
-- `Feedback`: depoimentos com navegação entre avaliações.
-- `Blog`: artigos e dicas da página original.
-- `Contato`: formulário e geração da mensagem de orçamento para WhatsApp.
-- `Footer`: identidade e resumo do espaço, navegação, tipos de celebração, contato, visitação e redes sociais.
+O workflow `.github/workflows/deploy.yml` instala as dependências, gera `dist` e publica o site no GitHub Pages a cada envio para `main` ou `master`. Durante o deploy, ele configura automaticamente o caminho base usando o nome do repositório.
 
-A página está dividida em componentes React em `src/components`. O HTML restante é apenas o ponto de entrada padrão do Vite (`index.html`).
+Para publicar:
 
+1. Envie o conteúdo desta pasta para a raiz de um repositório GitHub.
+2. No repositório, abra **Settings → Pages** e selecione **GitHub Actions** como fonte de publicação.
+3. Envie um commit para `main` ou `master` (ou inicie o workflow manualmente pela aba **Actions**).
 
+## Seções da página
 
+- `NavBar`: navegação responsiva.
+- `Hero`: apresentação e carrossel de imagens.
+- `Eventos`: tipos de celebração e acesso ao orçamento.
+- `Sobre`: história, estrutura e capacidade do espaço.
+- `Cardapio`: gastronomia e pacotes.
+- `Feedback`: depoimentos com navegação.
+- `Contato`: formulário de orçamento.
+- `Footer`: informações institucionais e contato.
