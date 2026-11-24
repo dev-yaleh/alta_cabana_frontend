@@ -8,7 +8,7 @@ export default function NavBar() {
     update(); window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);
   }, []);
-  const links = [['Home', '#inicio'], ['Sobre', '#sobre'], ['Espaço', '#o-espaco'], ['Eventos', '#eventos'], ['Contato', '#orcamento']];
+  const links = [['Home', '#inicio'], ['Eventos', '#eventos'], ['Sobre', '#sobre'], ['Espaço', '#o-espaco'], ['Contato', '#orcamento']];
   return <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${scrolled ? 'nav-scrolled' : 'nav-transparent'}`}>
     <div className="mx-auto flex max-w-[90rem] items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
       <a href="#inicio" aria-label="Espaço Alta Cabana - Início" className="group flex items-center gap-3.5">

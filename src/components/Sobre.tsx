@@ -1,8 +1,10 @@
+import detalheSalao from '../assets/sobre-detalhe-salao.png';
+
 type Props = { onQuote: (event?: string) => void };
 
 const inspirationPhotos = {
   celebration: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1100&q=85',
-  table: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1000&q=85',
+  table: detalheSalao,
 };
 
 export default function Sobre({ onQuote }: Props) {

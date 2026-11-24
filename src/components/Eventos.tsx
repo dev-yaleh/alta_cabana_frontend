@@ -1,18 +1,22 @@
+import debutantePhoto from '../assets/evento-debutante.png';
+import weddingPhoto from '../assets/evento-casamento.png';
+import anniversaryPhoto from '../assets/evento-aniversario.png';
+
 type Props = { onQuote: (event?: string) => void };
-type EventCard = { title: string; subtitle: string; image: string; alt: string; featured?: boolean; formEvent: string; marker: string };
+type EventCard = { title: string; subtitle: string; image: string; alt: string; featured?: boolean; formEvent: string; marker: string; localImage?: boolean };
 
 const events: EventCard[] = [
   {
-    title: '15 Anos / Debutante', subtitle: 'Noites de sonho', image: 'photo-1519225421980-715cb0215aed',
-    alt: 'Festa de 15 anos com decoração e iluminação especial', featured: true, formEvent: 'Debutante / 15 Anos', marker: '15',
+    title: '15 Anos / Debutante', subtitle: 'Noites de sonho', image: debutantePhoto, localImage: true,
+    alt: 'Debutante com vestido azul em um ambiente elegante', featured: true, formEvent: 'Debutante / 15 Anos', marker: '15',
   },
   {
-    title: 'Casamento e Mini-Wedding', subtitle: 'Duas vidas, uma história', image: 'photo-1583939003579-730e3918a45a',
-    alt: 'Celebração de casamento no Espaço Alta Cabana', formEvent: 'Casamento', marker: '♡',
+    title: 'Casamento e Mini-Wedding', subtitle: 'Duas vidas, uma história', image: weddingPhoto, localImage: true,
+    alt: 'Casal de noivos em frente à entrada do Espaço Alta Cabana', formEvent: 'Casamento', marker: '&',
   },
   {
-    title: 'Aniversários e Bodas', subtitle: 'Cada ano, uma celebração', image: 'photo-1530103862676-de8c9debad1d',
-    alt: 'Festa de aniversário ou bodas decorada', formEvent: 'Aniversário / Comemoração', marker: '+1',
+    title: 'Aniversários e Bodas', subtitle: 'Cada ano, uma celebração', image: anniversaryPhoto, localImage: true,
+    alt: 'Mesa decorada em azul e dourado para uma festa de aniversário', formEvent: 'Aniversário / Comemoração', marker: '+1',
   },
   {
     title: 'Corporativos', subtitle: 'Onde decisões acontecem', image: 'photo-1511578314322-379afb476865',
@@ -58,7 +62,7 @@ function EventTile({ event, onClick, featured = false, revealClass = '' }: { eve
       aria-label={`${event.title}: ${event.subtitle}`}
     >
       <img
-        src={`https://images.unsplash.com/${event.image}?auto=format&fit=crop&w=${featured ? 1200 : 900}&q=85`}
+        src={event.localImage ? event.image : `https://images.unsplash.com/${event.image}?auto=format&fit=crop&w=${featured ? 1200 : 900}&q=85`}
         alt={event.alt}
         className="absolute inset-0 -z-20 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         loading="lazy"
