@@ -1,13 +1,31 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>alta-cabana-frontend</title>
+    <meta name="theme-color" content="#1a1a1a" />
+    <meta name="description" content="Casamentos, mini weddings, festas de 15 anos e eventos no Espaço Alta Cabana, em Santos." />
+    <title>Espaço Alta Cabana | Eventos em Santos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: { extend: {
+          colors: {
+            cabana: { 50:'#FFF7F2',100:'#FFECE0',200:'#FFD5BD',500:'#FF7826',600:'#E56315',700:'#C04E0C' },
+            charcoal: { 800:'#262626',900:'#1A1A1A',950:'#111111' }, ivory:'#FAF8F5', gold:'#C69C6D'
+          },
+          fontFamily: { serif:['"Cormorant Garamond"','Georgia','serif'], sans:['"Plus Jakarta Sans"','sans-serif'], condensed:['"Oswald"','sans-serif'] },
+          boxShadow: { editorial:'0 20px 50px -15px rgba(26,26,26,.08)', 'glow-orange':'0 12px 32px -6px rgba(255,120,38,.38)' }
+        }}
+      };
+    </script>
   </head>
-  <body>
+  <body class="antialiased selection:bg-cabana-500 selection:text-white">
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
