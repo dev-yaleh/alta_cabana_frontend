@@ -1,9 +1,64 @@
-import { FormEvent, useEffect, useState } from 'react';
-type FormFields={name:string;email:string;phone:string;eventType:string;date:string;guests:string;notes:string};
-const emptyForm:FormFields={name:'',email:'',phone:'',eventType:'Casamento',date:'',guests:'80 a 150 convidados',notes:''};
-export default function Contato(){const [form,setForm]=useState(emptyForm);const [submitted,setSubmitted]=useState(false);useEffect(()=>{const listener=(event:Event)=>setForm(current=>({...current,eventType:(event as CustomEvent<string>).detail}));window.addEventListener('alta:select-event',listener);return()=>window.removeEventListener('alta:select-event',listener);},[]);const update=(field:keyof FormFields,value:string)=>{setForm(current=>({...current,[field]:value}));setSubmitted(false)};const message=()=>{const date=form.date?form.date.split('-').reverse().join('/'):'A definir';return `Olá, Espaço Alta Cabana! Gostaria de solicitar um orçamento:\n\n• *Nome:* ${form.name||'Cliente'}\n• *E-mail:* ${form.email}\n• *WhatsApp:* ${form.phone}\n• *Tipo de Evento:* ${form.eventType}\n• *Data Prevista:* ${date}\n• *Convidados:* ${form.guests}${form.notes?`\n• *Observações:* ${form.notes}`:''}`};const whatsapp=()=>`https://wa.me/5513997140000?text=${encodeURIComponent(message())}`;const submit=(event:FormEvent<HTMLFormElement>)=>{event.preventDefault();setSubmitted(true)};return <><section id="orcamento" className="relative overflow-hidden bg-white py-24 sm:py-28"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="grid grid-cols-1 overflow-hidden rounded-[2.5rem] bg-charcoal-900 shadow-2xl lg:grid-cols-12"><div className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-charcoal-900 via-charcoal-900 to-charcoal-800 p-8 text-white sm:p-12 lg:col-span-5 lg:p-14"><div className="pointer-events-none absolute -bottom-16 -right-16 h-64 w-64 rounded-full bg-cabana-500/15 blur-2xl"/><div className="relative"><span className="mb-3 block text-xs font-bold uppercase tracking-[.26em] text-cabana-500">Atendimento Personalizado</span><h2 className="mb-5 font-serif text-3xl font-semibold leading-tight sm:text-4xl">Vamos começar a planejar o seu grande dia?</h2><p className="mb-8 text-sm leading-relaxed text-zinc-400">Preencha os dados ao lado para receber nossa proposta personalizada e verificar a disponibilidade de datas no Espaço Alta Cabana em Santos/SP.</p><div className="space-y-5 text-sm">{[['fa-location-dot','Localização em Santos','Santos, Estado de São Paulo - SP'],['fa-brands fa-whatsapp','Atendimento Rápido','(13) 99714-0000 • Resposta em horário comercial'],['fa-clock','Visitas Agendadas','Terça a Sábado, das 10h às 19h']].map(([icon,title,description])=><div key={title} className="flex items-start gap-4"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cabana-500/15 text-cabana-500"><i className={`${icon.startsWith('fa-brands')?'':'fa-solid '}${icon}`}/></span><div><h3 className="font-bold text-white">{title}</h3><p className="mt-0.5 text-xs text-zinc-400">{description}</p></div></div>)}</div></div><p className="relative mt-10 border-t border-white/10 pt-6 text-xs text-zinc-400">Prefere falar agora? Envie a solicitação pelo WhatsApp com seus dados já preenchidos.</p></div>
- <div className="bg-white p-8 sm:p-12 lg:col-span-7 lg:p-14"><form onSubmit={submit} className="space-y-5"><div className="grid grid-cols-1 gap-5 sm:grid-cols-2"><Field label="Nome Completo *"><input required value={form.name} onChange={e=>update('name',e.target.value)} placeholder="Ex: Mariana Silva" className={inputClass}/></Field><Field label="E-mail *"><input required type="email" value={form.email} onChange={e=>update('email',e.target.value)} placeholder="seu@email.com" className={inputClass}/></Field></div><div className="grid grid-cols-1 gap-5 sm:grid-cols-2"><Field label="Telefone / WhatsApp *"><input required type="tel" value={form.phone} onChange={e=>update('phone',e.target.value)} placeholder="(13) 99999-9999" className={inputClass}/></Field><Field label="Tipo de Evento *"><select value={form.eventType} onChange={e=>update('eventType',e.target.value)} className={inputClass}>{['Casamento','Debutante / 15 Anos','Mini Wedding','Bodas','Aniversário / Comemoração','Corporativo'].map(item=><option key={item}>{item}</option>)}</select></Field></div><div className="grid grid-cols-1 gap-5 sm:grid-cols-2"><Field label="Data Prevista"><input type="date" value={form.date} onChange={e=>update('date',e.target.value)} className={inputClass}/></Field><Field label="Quantidade de Convidados"><select value={form.guests} onChange={e=>update('guests',e.target.value)} className={inputClass}>{['50 a 80 convidados','80 a 150 convidados','150 a 250 convidados','Acima de 250 convidados'].map(item=><option key={item}>{item}</option>)}</select></Field></div><Field label="Detalhes ou Observações (Opcional)"><textarea rows={3} value={form.notes} onChange={e=>update('notes',e.target.value)} placeholder="Conte um pouco sobre como você imagina sua celebração..." className={inputClass}/></Field><div className="flex flex-col gap-3 pt-2 sm:flex-row"><button type="submit" className="btn-fresh flex flex-1 items-center justify-center gap-2 rounded-xl bg-cabana-500 px-6 py-4 text-xs font-bold uppercase tracking-[.16em] text-white shadow-glow-orange"><span>Solicitar Orçamento</span><i className="fa-solid fa-paper-plane"/></button><button type="button" onClick={()=>window.open(whatsapp(),'_blank','noopener,noreferrer')} className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-6 py-4 text-xs font-bold uppercase tracking-[.14em] text-white shadow-lg"><i className="fa-brands fa-whatsapp text-base"/>Enviar via WhatsApp</button></div></form>{submitted&&<div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-900"><h3 className="text-sm font-bold">Solicitação recebida com sucesso!</h3><p className="mt-1 text-xs leading-relaxed text-emerald-800">Obrigado, {form.name}! Registramos seu interesse para {form.eventType} no Espaço Alta Cabana. Nossa equipe em Santos entrará em contato em breve.</p><a href={whatsapp()} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-2 rounded-lg bg-[#25D366] px-4 py-2 text-xs font-bold text-white"><i className="fa-brands fa-whatsapp"/>Continuar no WhatsApp agora</a></div>}</div></div></div></section></>}
-const inputClass='w-full rounded-xl border border-zinc-200 bg-ivory px-4 py-3.5 text-sm transition-colors focus:border-cabana-500 focus:bg-white focus:outline-none';
-function Field({label,children}:{label:string;children:React.ReactNode}){return <label className="block text-xs font-bold uppercase tracking-wider text-charcoal-800">{label}<span className="mt-2 block">{children}</span></label>}
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
 
+type FormFields = { name: string; email: string; phone: string; eventType: string; date: string; guests: string; notes: string };
+const emptyForm: FormFields = { name: '', email: '', phone: '', eventType: 'Casamento', date: '', guests: '80 a 150 convidados', notes: '' };
+const inputClass = 'w-full rounded-none border border-zinc-200 bg-ivory px-4 py-3.5 text-sm transition-colors focus:border-cabana-500 focus:bg-white focus:outline-none';
 
+export default function Contato() {
+  const [form, setForm] = useState(emptyForm);
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    const listener = (event: Event) => setForm(current => ({ ...current, eventType: (event as CustomEvent<string>).detail }));
+    window.addEventListener('alta:select-event', listener);
+    return () => window.removeEventListener('alta:select-event', listener);
+  }, []);
+
+  const update = (field: keyof FormFields, value: string) => {
+    setForm(current => ({ ...current, [field]: value }));
+    setSubmitted(false);
+  };
+
+  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSubmitted(true); };
+
+  return (
+    <section id="orcamento" className="bg-white py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid overflow-hidden border border-zinc-200/80 bg-white shadow-xl lg:grid-cols-12">
+          <div className="flex flex-col justify-center bg-[#fcfbf9] px-7 py-10 sm:px-10 sm:py-12 lg:col-span-5 lg:px-12 lg:py-14">
+            <span className="mb-6 flex items-center gap-4 text-[10px] font-semibold uppercase tracking-[.3em] text-charcoal-900"><span className="h-px w-9 bg-cabana-500" />Vamos conversar</span>
+            <h2 className="mb-6 font-serif text-4xl font-normal leading-[1.02] tracking-[-.045em] text-charcoal-900 sm:text-5xl lg:text-[52px]">Vamos planejar uma celebração inesquecível?</h2>
+            <p className="max-w-lg text-sm leading-7 text-zinc-600 sm:text-base sm:leading-8">Conte um pouco sobre o seu evento. Nossa equipe vai preparar uma proposta personalizada para transformar sua ideia em uma celebração especial no Espaço Alta Cabana.</p>
+          </div>
+
+          <div className="bg-white p-6 sm:p-9 lg:col-span-7 lg:p-12">
+            <form onSubmit={submit} className="space-y-5">
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field label="Nome Completo *"><input required value={form.name} onChange={e => update('name', e.target.value)} placeholder="Ex: Mariana Silva" className={inputClass} /></Field>
+                <Field label="E-mail *"><input required type="email" value={form.email} onChange={e => update('email', e.target.value)} placeholder="seu@email.com" className={inputClass} /></Field>
+              </div>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field label="Telefone / WhatsApp *"><input required type="tel" value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(13) 99999-9999" className={inputClass} /></Field>
+                <Field label="Tipo de Evento *"><select value={form.eventType} onChange={e => update('eventType', e.target.value)} className={inputClass}>{['Casamento', 'Debutante / 15 Anos', 'Mini Wedding', 'Bodas', 'Aniversário / Comemoração', 'Corporativo'].map(item => <option key={item}>{item}</option>)}</select></Field>
+              </div>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field label="Data Prevista"><input type="date" value={form.date} onChange={e => update('date', e.target.value)} className={inputClass} /></Field>
+                <Field label="Quantidade de Convidados"><select value={form.guests} onChange={e => update('guests', e.target.value)} className={inputClass}>{['50 a 80 convidados', '80 a 150 convidados', '150 a 250 convidados', 'Acima de 250 convidados'].map(item => <option key={item}>{item}</option>)}</select></Field>
+              </div>
+              <Field label="Detalhes ou Observações (Opcional)"><textarea rows={3} value={form.notes} onChange={e => update('notes', e.target.value)} placeholder="Conte um pouco sobre como você imagina sua celebração..." className={inputClass} /></Field>
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+                <button type="submit" className="btn-fresh flex w-full items-center justify-center gap-2 rounded-none bg-cabana-500 px-6 py-4 text-xs font-bold uppercase tracking-[.16em] text-white shadow-glow-orange"><span>Solicitar Orçamento</span><i className="fa-solid fa-paper-plane" /></button>
+              </div>
+            </form>
+
+            {submitted && <div className="mt-6 rounded-none border border-emerald-200 bg-emerald-50 p-5 text-emerald-900"><h3 className="text-sm font-bold">Solicitação recebida com sucesso!</h3><p className="mt-1 text-xs leading-relaxed text-emerald-800">Obrigado, {form.name}! Registramos seu interesse para {form.eventType} no Espaço Alta Cabana. Nossa equipe entrará em contato em breve.</p></div>}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Field({ label, children }: { label: string; children: ReactNode }) {
+  return <label className="block text-xs font-bold uppercase tracking-wider text-charcoal-800">{label}<span className="mt-2 block">{children}</span></label>;
+}

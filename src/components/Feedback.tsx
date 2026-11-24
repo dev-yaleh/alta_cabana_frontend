@@ -1,7 +1,37 @@
 import { useState } from 'react';
-const testimonials=[
- {quote:'Escolher o Espaço Alta Cabana foi a melhor decisão do nosso casamento. Desde a primeira visita nos apaixonamos pela fachada em madeira, pelo cuidado da equipe e pela gastronomia impecável. Nossos convidados elogiam até hoje!',author:'Ana & Sandivon',event:'Casamento • Espaço Alta Cabana',avatar:'photo-1583939003579-730e3918a45a'},
- {quote:'A festa de 15 anos da nossa filha foi simplesmente mágica. A iluminação cênica, a pista de dança e o atendimento atencioso de cada garçom fizeram toda a diferença para vivermos uma noite sem preocupações.',author:'Família da Gabryella',event:'15 Anos • Santos/SP',avatar:'photo-1519225421980-715cb0215aed'},
- {quote:'Queríamos um Mini Wedding acolhedor e elegante em Santos, e encontramos no Alta Cabana exatamente o que sonhávamos. O buffet próprio surpreendeu a todos pelo sabor e apresentação.',author:'Emilly & Igor',event:'Mini Wedding • Espaço Alta Cabana',avatar:'photo-1532712938310-34cb3982ef74'},
+
+const testimonials = [
+  { quote: 'Escolher o Espaço Alta Cabana foi a melhor decisão do nosso casamento. Desde a primeira visita nos apaixonamos pela fachada em madeira, pelo cuidado da equipe e pela gastronomia impecável. Nossos convidados elogiam até hoje!', author: 'Ana & Sandivon', event: 'Casamento · Espaço Alta Cabana', image: 'photo-1583939003579-730e3918a45a' },
+  { quote: 'A festa de 15 anos da nossa filha foi simplesmente mágica. A iluminação cênica, a pista de dança e o atendimento atencioso de cada garçom fizeram toda a diferença para vivermos uma noite sem preocupações.', author: 'Família da Gabryella', event: '15 Anos · Santos/SP', image: 'photo-1519225421980-715cb0215aed' },
+  { quote: 'Queríamos um Mini Wedding acolhedor e elegante em Santos, e encontramos no Alta Cabana exatamente o que sonhávamos. O buffet próprio surpreendeu a todos pelo sabor e apresentação.', author: 'Emilly & Igor', event: 'Mini Wedding · Espaço Alta Cabana', image: 'photo-1532712938310-34cb3982ef74' },
 ];
-export default function Feedback(){const [index,setIndex]=useState(0);const item=testimonials[index];return <section id="depoimentos" className="relative overflow-hidden bg-charcoal-900 py-24 text-white sm:py-28"><div className="pointer-events-none absolute -right-20 top-0 h-80 w-80 rounded-full bg-cabana-500/10 blur-3xl"/><div className="relative mx-auto max-w-5xl px-4 text-center sm:px-6"><span className="mb-3 block text-xs font-bold uppercase tracking-[.26em] text-cabana-500">Histórias que ficam</span><h2 className="mb-12 font-serif text-3xl font-semibold sm:text-5xl">O que dizem sobre nós</h2><div className="mx-auto max-w-4xl"><div className="mb-8 flex justify-center gap-1 text-cabana-500">{Array.from({length:5},(_,i)=><i key={i} className="fa-solid fa-star"/>)}</div><blockquote className="mb-8 font-serif text-2xl italic leading-relaxed text-zinc-100 sm:text-3xl">“{item.quote}”</blockquote><div className="flex items-center justify-center gap-4"><img src={`https://images.unsplash.com/${item.avatar}?auto=format&fit=crop&w=200&q=80`} alt={item.author} className="h-14 w-14 rounded-full border-2 border-cabana-500 object-cover"/><div className="text-left"><h3 className="text-base font-bold text-white">{item.author}</h3><p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-cabana-500">{item.event}</p></div></div></div><div className="mt-10 flex justify-center gap-3"><button aria-label="Depoimento anterior" onClick={()=>setIndex((index+testimonials.length-1)%testimonials.length)} className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-cabana-500"><i className="fa-solid fa-arrow-left"/></button><button aria-label="Próximo depoimento" onClick={()=>setIndex((index+1)%testimonials.length)} className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white transition hover:bg-cabana-500"><i className="fa-solid fa-arrow-right"/></button></div></div></section>}
+
+export default function Feedback() {
+  const [index, setIndex] = useState(0);
+  const item = testimonials[index];
+  const change = (direction: number) => setIndex((index + direction + testimonials.length) % testimonials.length);
+
+  return (
+    <section id="depoimentos" className="bg-charcoal-900 px-6 py-16 text-white sm:px-12 sm:py-20 lg:py-24">
+      <div className="reveal mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+          <span className="mb-6 flex items-center gap-4 text-[10px] font-semibold uppercase tracking-[.3em] text-white/80"><span className="h-px w-9 bg-cabana-500" />Histórias que ficam<span className="h-px w-9 bg-cabana-500" /></span>
+          <h2 className="mb-7 font-serif text-4xl font-normal leading-[1.02] tracking-[-.045em] text-white sm:text-5xl lg:text-[58px]">Cada celebração deixa uma memória.</h2>
+          <div className="mb-5 flex gap-1 text-xs text-cabana-500" aria-label="5 de 5 estrelas">{Array.from({ length: 5 }, (_, star) => <i key={star} className="fa-solid fa-star" aria-hidden="true" />)}</div>
+          <blockquote className="mb-7 max-w-3xl text-sm leading-7 text-zinc-300 sm:text-base sm:leading-8">“{item.quote}”</blockquote>
+
+          <div className="mb-8 w-full max-w-2xl border-y border-white/15 py-5">
+            <p className="font-serif text-lg text-white">{item.author}</p>
+            <p className="mt-1 text-[10px] font-semibold uppercase tracking-[.17em] text-zinc-400">{item.event}</p>
+          </div>
+
+          <div className="flex w-full max-w-2xl items-center justify-between">
+            <span className="text-[10px] font-medium tracking-[.16em] text-zinc-400">0{index + 1} <span className="mx-1 text-cabana-500">/</span> 0{testimonials.length}</span>
+            <div className="flex gap-2">
+              <button aria-label="Depoimento anterior" onClick={() => change(-1)} className="flex h-11 w-11 items-center justify-center border border-white/30 text-white transition hover:border-cabana-500 hover:bg-cabana-500"><i className="fa-solid fa-arrow-left" aria-hidden="true" /></button>
+              <button aria-label="Próximo depoimento" onClick={() => change(1)} className="flex h-11 w-11 items-center justify-center border border-white/30 text-white transition hover:border-cabana-500 hover:bg-cabana-500"><i className="fa-solid fa-arrow-right" aria-hidden="true" /></button>
+            </div>
+          </div>
+      </div>
+    </section>
+  );
+}
