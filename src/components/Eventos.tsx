@@ -28,18 +28,19 @@ export default function Eventos({ onQuote }: Props) {
   return (
     <section id="eventos" className="bg-white py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8">
-        <header className="mb-8 flex items-end justify-between gap-6 sm:mb-10">
-          <h2 className="font-sans text-3xl font-normal tracking-tight text-charcoal-900 sm:text-4xl lg:text-[42px]">
-            Tipos <span className="text-zinc-400">de Eventos.</span>
-          </h2>
+        <header className="reveal mb-8 flex items-end justify-between gap-6 sm:mb-10">
+          <div>
+            <span className="mb-5 flex items-center gap-4 text-[10px] font-semibold uppercase tracking-[.3em] text-charcoal-900"><span className="h-px w-9 bg-cabana-500" />Celebre do seu jeito</span>
+            <h2 className="font-sans text-4xl font-normal leading-[1.02] tracking-[-.045em] text-charcoal-900 sm:text-5xl lg:text-[58px]">Tipos de Eventos</h2>
+          </div>
           <a href="#orcamento" className="mb-1 inline-flex shrink-0 items-center gap-2 text-[10px] font-semibold uppercase tracking-[.24em] text-zinc-500 transition-colors hover:text-cabana-500 sm:text-xs">
             Planeje seu evento <span aria-hidden="true">→</span>
           </a>
         </header>
 
         <div className="grid grid-cols-1 gap-3 md:min-h-[640px] md:grid-cols-[1.08fr_.92fr] md:grid-rows-3">
-          <EventTile event={featured} onClick={() => openEvent(featured)} featured />
-          <div className="grid grid-cols-1 gap-3 md:row-span-3 md:grid-rows-3">
+          <EventTile event={featured} onClick={() => openEvent(featured)} featured revealClass="reveal-left" />
+          <div className="reveal-right delay-200 grid grid-cols-1 gap-3 md:row-span-3 md:grid-rows-3">
             {supporting.map(event => <EventTile key={event.title} event={event} onClick={() => openEvent(event)} />)}
           </div>
         </div>
@@ -48,12 +49,12 @@ export default function Eventos({ onQuote }: Props) {
   );
 }
 
-function EventTile({ event, onClick, featured = false }: { event: EventCard; onClick: () => void; featured?: boolean }) {
+function EventTile({ event, onClick, featured = false, revealClass = '' }: { event: EventCard; onClick: () => void; featured?: boolean; revealClass?: string }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`group relative isolate block w-full overflow-hidden rounded-none text-left text-white shadow-sm ${featured ? 'min-h-[420px] md:row-span-3 md:min-h-0' : 'min-h-[148px] md:min-h-0'}`}
+      className={`${revealClass} group relative isolate block w-full overflow-hidden rounded-none text-left text-white shadow-sm ${featured ? 'min-h-[420px] md:row-span-3 md:min-h-0' : 'min-h-[148px] md:min-h-0'}`}
       aria-label={`${event.title}: ${event.subtitle}`}
     >
       <img
