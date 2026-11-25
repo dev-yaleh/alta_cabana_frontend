@@ -1,38 +1,83 @@
 # Espaço Alta Cabana
 
-Landing page responsiva para o Espaço Alta Cabana, feita com React, TypeScript e Vite.
+Site institucional responsivo do Espaço Alta Cabana, salão de eventos em Santos. A página apresenta o espaço, os tipos de celebração, a gastronomia e um formulário demonstrativo para pedidos de orçamento.
 
-## Desenvolvimento local
+**Repositório:** [dev-yaleh/alta_cabana_frontend](https://github.com/dev-yaleh/alta_cabana_frontend)
+
+## Tecnologias
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS 4
+- Motion para animações
+
+## Seções do site
+
+- **Home:** carrossel de imagens do espaço.
+- **Eventos:** debutantes, casamentos e mini-weddings, aniversários e bodas, e eventos corporativos.
+- **Sobre:** história e estrutura do Espaço Alta Cabana.
+- **Cardápio:** apresentação da gastronomia e dos pacotes.
+- **Feedback:** depoimentos de clientes.
+- **Contato:** formulário de solicitação de orçamento.
+- **Footer:** informações de contato e redes sociais.
+
+## Requisitos
+
+- Node.js 20 ou superior
+- npm
+
+## Executar localmente
+
+Na raiz do repositório:
 
 ```bash
 npm ci
 npm run dev
 ```
 
-## Build de produção
+O Vite exibirá no terminal o endereço local para abrir no navegador.
+
+## Gerar e visualizar a versão de produção
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Publicação no GitHub Pages
+Os arquivos prontos para publicação são gerados na pasta `dist/`.
 
-O workflow `.github/workflows/deploy.yml` instala as dependências, gera `dist` e publica o site no GitHub Pages a cada envio para `main` ou `master`. Durante o deploy, ele configura automaticamente o caminho base usando o nome do repositório.
+## Deploy no GitHub Pages
 
-Para publicar:
+O workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) compila o projeto e publica a pasta `dist` no GitHub Pages quando há um push para `main` ou `master`. Também é possível iniciar a publicação manualmente pela aba **Actions**.
 
-1. Envie o conteúdo desta pasta para a raiz de um repositório GitHub.
-2. No repositório, abra **Settings → Pages** e selecione **GitHub Actions** como fonte de publicação.
-3. Envie um commit para `main` ou `master` (ou inicie o workflow manualmente pela aba **Actions**).
+Para habilitar a publicação no repositório:
 
-## Seções da página
+1. Abra **Settings → Pages**.
+2. Em **Build and deployment → Source**, selecione **GitHub Actions**.
+3. Envie as alterações para a branch `main` (ou `master`) e acompanhe o workflow na aba **Actions**.
 
-- `NavBar`: navegação responsiva.
-- `Hero`: apresentação e carrossel de imagens.
-- `Eventos`: tipos de celebração e acesso ao orçamento.
-- `Sobre`: história, estrutura e capacidade do espaço.
-- `Cardapio`: gastronomia e pacotes.
-- `Feedback`: depoimentos com navegação.
-- `Contato`: formulário de orçamento.
-- `Footer`: informações institucionais e contato.
+O workflow ajusta automaticamente o caminho base para o endereço do repositório no GitHub Pages.
+
+## Estrutura principal
+
+```text
+.
+├── .github/workflows/deploy.yml
+├── src/
+│   ├── assets/          # Imagens locais do projeto
+│   ├── components/      # Componentes das seções e da navegação
+│   ├── App.tsx
+│   ├── index.css
+│   └── main.tsx
+├── index.html
+└── package.json
+```
+
+## Observação sobre o formulário
+
+Atualmente, o formulário de orçamento valida os campos no navegador e exibe uma confirmação na página. Ele ainda não envia nem armazena os dados em um serviço ou backend.
+
+## Imagens e recursos externos
+
+Além das imagens locais em `src/assets`, algumas imagens e recursos visuais podem ser carregados de serviços externos. Esses recursos precisam de conexão com a internet para aparecer corretamente.
